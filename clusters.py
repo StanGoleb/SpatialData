@@ -8,7 +8,7 @@ import networkx as nx
 from sklearn.neighbors import radius_neighbors_graph
 from sklearn.cluster import AgglomerativeClustering
 
-def clusterize(input_path, chosen_cells, cluster_num, max_neighbor_distance, component_min_size):
+def clusterize(input_path, chosen_cells, cluster_num, max_neighbor_distance, min_graph_size):
 
     if1_cell_types = ["other", "CD15+Tumor", "CD15-Tumor", "Tcell", "Bcell", "BnTcell", "Neutrophil", "Macrophage", "DC"]
 
@@ -37,8 +37,8 @@ def clusterize(input_path, chosen_cells, cluster_num, max_neighbor_distance, com
         chosen_to_all[i] = row_ind
         i+= 1
     
-    # wybieramy najlepsze grafy spójne - ponad "component_min_size" elementów
-    chosen_connected_components = [component for component in chosen_connected_components if len(component) > component_min_size]
+    # wybieramy najlepsze grafy spójne - ponad "min_graph_size" elementów
+    chosen_connected_components = [component for component in chosen_connected_components if len(component) > min_graph_size]
 
     expanded_components_vectors = []
     expanded_components_ids = []
