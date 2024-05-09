@@ -6,6 +6,7 @@ def color_types(input_path, dict_path):
     df = pd.read_csv(input_path)
     dict_file = pd.read_csv(dict_path)
 
+    # Stworzenie odpowiednio przesortowanego słownika do znajdowania typu komórki po jej markerach (tylko dla IF1).
     sorted_dict = {}
     for key_ind, key in enumerate(dict_file['phenotype']):
         old = key.split('C')[1:]
@@ -30,8 +31,8 @@ def color_types(input_path, dict_path):
                         "Macrophage": rgb_to_hex((97, 209, 62)),
                         "DC": rgb_to_hex((49, 113, 30))}
 
+    # Zczytanie odpowiedinch kolorów i nazw typów dla komórek
     colors = [IF1_cell_mapping[celltype] for celltype in labels]
-    # Create legend handles and labels
     legend_handles = [mpatches.Patch(color=color, label=label) for label, color in IF1_cell_mapping.items()]
     
     return xs, ys, colors, legend_handles, IF1_cell_mapping
