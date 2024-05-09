@@ -19,6 +19,7 @@ Simple script for analysis and graphical representation of data from biopsy samp
 =====INSTRUCTIONS=====  
   
 1.Before the first run of the program, create a directory named “if_data” containing data about biopsy samples (IF1). Place this directory inside the main directory where all program files are located.  
+  
 2.The main file to execute is visualization.py. To run the script use the command:  
   
 streamlit run <path_to_working_directory>/visualization.py  
