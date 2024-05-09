@@ -8,7 +8,7 @@ from clusters import clusterize
 from colors import color_types
 
 
-def visualize(input_path, dict_path, cluster_num, selected_types):
+def visualize(input_path, dict_path, selected_types, cluster_num, max_neighbor_distance, min_graph_size):
  
     # Graf z pokolorowanymi typami komórek na próbce z biopsji
     xs, ys, colors, legend_handles, color_dict = color_types(input_path, dict_path) #patrz colors.py
@@ -20,7 +20,7 @@ def visualize(input_path, dict_path, cluster_num, selected_types):
     ax1.legend(handles=legend_handles)
     st.pyplot(fig1)
 
-    plot_data, components_vectors, component_clusters = clusterize(selected_file, selected_types, cluster_num) #patrz clusters.py
+    plot_data, components_vectors, component_clusters = clusterize(selected_file, selected_types, cluster_num, max_neighbor_distance, min_graph_size) #patrz clusters.py
     
     # Graf z zaznaczonymi na próbce z biopsji grafami spójnymi z otoczką. Pokolorowane według klastra.
     fig2, ax2 = plt.subplots(figsize=(14, 10))
@@ -95,9 +95,15 @@ selected_cell_types = [cell_type for cell_type, status in checkbox_status.items(
 # Pole do wybrania ilości klastrów.
 cluster_num = st.number_input("Wprowadź liczbę klastrów", 1, 100)
 
+# Pole do wybrania minimalnej wielkości początkowego grafu spójnego.
+min_graph_size = st.number_input("Wprowadź minimalną wielkość początkowych grafów spójnych wybranych komórek", 1, 100, 20)
+
+# Pole do wybrania maksymalnej odległości pomiędzy sąsiadami w grafach.
+max_neighbor_distance = st.number_input("Wprowadź maksymalna odległość pomiędzy wybranymi komórkami", 1, 100, 30)
+
 run_button = st.button("Start")
 
 # Po naciśnięciu przycisku odpalić wizualizację.
 if run_button:
     if selected_file is not None:
-        visualize(selected_file, dict_path, cluster_num, selected_cell_types)
+        visualize(selected_file, dict_path, selected_cell_types, cluster_num, max_neighbor_distance, min_graph_size)
