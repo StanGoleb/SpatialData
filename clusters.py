@@ -79,7 +79,7 @@ def clusterize(input_path, chosen_cells, cluster_num, max_neighbor_distance, min
         component_clusters = hierarchical_cluster.fit_predict(expanded_components_vectors)
         component_cluster_ids = [i+1 for i in component_clusters]
         
-        plot_data = {cluster_id + 1 : [[], []] for cluster_id in range(cluster_size)}
+        plot_data = {cluster_id + 1 : [[], []] for cluster_id in range(cluster_num)}
         # Tworzymy klaster dla tła.
         plot_data[0] = [[], []]
         for cell_id, (x, y) in enumerate(all_xy):
